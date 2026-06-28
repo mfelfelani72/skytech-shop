@@ -1,53 +1,51 @@
-export default function Dashboard() {
+"use client";
 
-    return (
-
-        <div className="grid grid-cols-3 gap-5">
-
-
-            <div className="bg-white p-6 rounded-xl shadow">
-
-                Orders
-
-                <h2 className="text-3xl font-bold">
-
-                    0
-
-                </h2>
-
-            </div>
+import {useEffect,useState} from "react";
+import {api} from "@/lib/api/api";
 
 
+export default function Dashboard(){
 
-            <div className="bg-white p-6 rounded-xl shadow">
+const [user,setUser]=useState();
 
-                Products
 
-                <h2 className="text-3xl font-bold">
+useEffect(()=>{
 
-                    0
+api("/me")
+.then(
+r=>r.json()
+)
+.then(
+setUser
+);
 
-                </h2>
 
-            </div>
+},[]);
 
 
 
-            <div className="bg-white p-6 rounded-xl shadow">
+return (
 
-                Revenue
+<div>
 
-                <h2 className="text-3xl font-bold">
-
-                    $0
-
-                </h2>
-
-            </div>
+<h1>
+Dashboard
+</h1>
 
 
-        </div>
+<pre>
+{
+JSON.stringify(
+user,
+null,
+2
+)
+}
+</pre>
 
-    )
+
+</div>
+
+)
 
 }
